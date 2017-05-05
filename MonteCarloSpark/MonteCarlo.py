@@ -1,6 +1,7 @@
 # This runs Monte Carlo on Local Machine using Apache Spark
 # Taken from the following https://www.youtube.com/watch?v=j5kdmOV_xO8 & http://www.codeandfinance.com/pricing-options-monte-carlo.html
 # range can also be seen in earlier versions but from 3.x onwards only range is used
+# if spark is set up on a local machine this is a sample code that will do the most basic
 
 from pyspark import SparkContext
 sc = SparkContext()
@@ -10,7 +11,6 @@ import math
 import random
 import time
 from operator import add
-import matplotlib.pyplot as plt
 
 VOLATILITY = 0.3672
 RISK_FREE_RATE = 0.0024
@@ -60,13 +60,6 @@ for i in range(1, expiry + 1):             # 1 .. EXPIRES inclusive
 result_to_file.write("\n")  # adds a new line in the file
 result_to_file.close()      # closes the file once for loop is finished
 
-# Graphs
-plt.plot(call_times, call_option_price)
-plt.xlabel('T')
-plt.ylabel('Call Option Prices')
-plt.show()
-
-
 # PUT OPTION
 
 def put_payoff(asset_price,STRIKE_PRICE):
@@ -100,10 +93,4 @@ for i in range(1, expiry + 1):             # 1 .. EXPIRES inclusive
 
 put_to_file.write("\n")  # adds a new line in the file
 put_to_file.close()      # closes the file once for loop is finished
-
-# Graphs
-plt.plot(put_times, put_option_price )
-plt.xlabel('Time')
-plt.ylabel('Put Option Prices')
-plt.show()
 
